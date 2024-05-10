@@ -16,4 +16,4 @@ datasource db {
 model Testing{
   id Int @id @default(autoincrement())
   name String
-}
+} 
