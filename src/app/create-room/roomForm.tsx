@@ -16,13 +16,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import Link from "next/link";
+import { useRouter } from 'next/navigation'
 const formSchema = z.object({
   roomname: z.string().min(2, {
     message: "Room Name must be at least 2 characters.",
   }),
-  description : z.string().min(1).max(500),
-  githubRepo:z.string().min(1).max(50),
+  description: z.string().min(1).max(500),
+  githubRepo: z.string().min(1).max(50),
   language: z.string().min(1).max(100),
 });
 
@@ -30,7 +31,7 @@ function RoomForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const response = await fetch('pages/api/rooms', {
+      const response = await fetch('/api/action', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
@@ -38,17 +39,18 @@ function RoomForm() {
       const data = await response.json();
       console.log(data);
     } catch (error) {
-      console.error(error);
+      console.error("Error:", error);
     }
   }
+
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       roomname: "",
-      description:"",
-      githubRepo:"",
-      language:""
+      description: "",
+      githubRepo: "",
+      language: ""
     },
   });
 
@@ -84,7 +86,7 @@ function RoomForm() {
                 <Input placeholder="Enter your Room Description" {...field} />
               </FormControl>
               <FormDescription>
-              What's your project about? Give a brief overview of what you're working on.🧑🏻‍💻
+                What's your project about? Give a brief overview of what you're working on.🧑🏻‍💻
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -118,7 +120,7 @@ function RoomForm() {
                 <Input placeholder="Enter the details" {...field} />
               </FormControl>
               <FormDescription>
-              Tools of the trade: What languages, frameworks, and technologies are you using to build your project?🌐
+                Tools of the trade: What languages, frameworks, and technologies are you using to build your project?🌐
               </FormDescription>
               <FormMessage />
             </FormItem>
