@@ -1,7 +1,8 @@
-import Image from "next/image";
 
 export default function Home() {
-  return <>
-    <div>heyy</div>
-  </>
+  return (
+    <>
+      <div className="container flex justify-center	items-center	">heyy</div>
+    </>
+  );
 }

@@ -13,7 +13,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Testing{
-  id Int @id @default(autoincrement())
-  name String
-} 
+model Testing {
+  id       Int     @id @default(autoincrement())
+  name     String
+}
+
+model User {
+  id         String    @id @default(cuid())
+  clerkId    String?   @unique
+  email      String    @unique
+  firstName  String?
+  lastName   String?
+  // room       Room[]    @relation
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Room {
+  id       String   @id @default(cuid())
+  roomname String
+  description String
+  githubRepo String
+  language  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+// model Room {
+//   roomId  Int     @id @default(autoincrement()) @unique
+//   user    User    @relation(fields: [userId], references: [id])
+//   userId Int 
+//   Name String
+// }
